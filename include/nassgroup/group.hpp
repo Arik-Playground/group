@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstddef>
+#include <utility>
 #include <type_traits>
 
 namespace nass
@@ -61,6 +63,18 @@ namespace nass
 
         using getter_t = decltype(creator(args...));
         return group<getter_t> { creator(std::forward<ArgsTs>(args)...) };
+    }
+
+    template <typename... ArgsTs>
+    constexpr auto make_forward_group(ArgsTs&&... args)
+    {
+        constexpr auto creator = [](auto&&... args)
+        {
+            return create_group_getter(group_descriptor<ArgsTs&&...>{}, std::forward<ArgsTs>(args)...);
+        };
+
+        using creator_t = decltype(creator(args...));
+        return group<creator_t> { creator(args...) };
     }
 
     template <typename... Ts, typename... OpTs>
@@ -159,7 +173,7 @@ namespace nass
                 constexpr auto creator = [] (auto&... holders)
                 {
                     return create_group_getter(
-                        group_descriptor<decltype(holders)::item_t...>{}, 
+                        group_descriptor<decltype(holders.item)...>{}, 
                         holders.item...);
                 };
                 using getter_t = decltype(creator(holders...));
@@ -174,7 +188,7 @@ namespace nass
                 constexpr auto creator = [] (auto&... holders)
                 {
                     return create_group_getter(
-                        group_descriptor<decltype(holders)::item_t...>{}, 
+                        group_descriptor<decltype(holders.item)...>{}, 
                         holders.inner_ref()...);
                 };
                 using getter_t = decltype(creator(const_cast<std::remove_cvref_t<decltype(cholders)>&>(cholders)...));
@@ -189,11 +203,11 @@ namespace nass
                 constexpr auto creator = [] (auto&... holders)
                 {
                     return create_group_getter(
-                        group_descriptor<Ts...>{}, 
+                        group_descriptor<decltype(holders.item)...>{}, 
                         std::move(holders.inner_ref())...);
                 };
                 using getter_t = decltype(creator(const_cast<std::remove_cvref_t<decltype(cholders)>&>(cholders)...));
-                return group<getter_t, Ts...>{ creator(const_cast<std::remove_cvref_t<decltype(cholders)>&>(cholders)...) };
+                return group<getter_t>{ creator(const_cast<std::remove_cvref_t<decltype(cholders)>&>(cholders)...) };
             });
         }
 
