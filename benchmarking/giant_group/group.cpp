@@ -10,7 +10,7 @@ auto create_giant_group(std::index_sequence<Idxs...>)
 }
 
 #ifndef NASSGROUP_BENCHMARK_GIANT_NUMBER
-#define NASSGROUP_BENCHMARK_GIANT_NUMBER 1000
+#define NASSGROUP_BENCHMARK_GIANT_NUMBER 400
 #endif // NASSGROUP_BENCHMARK_GIANT_NUMBER
 
-extern const auto testee = create_giant_group(std::make_index_sequence<NASSGROUP_BENCHMARK_GIANT_NUMBER>());
+const auto testee = create_giant_group(std::make_index_sequence<NASSGROUP_BENCHMARK_GIANT_NUMBER>());

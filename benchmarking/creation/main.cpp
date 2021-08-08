@@ -15,27 +15,6 @@
 
 #endif // BENCH_NO_INLINE
 
-struct value_tt
-{
-    static volatile size_t created;
-    static volatile size_t copied;
-    static volatile size_t moved;
-
-    size_t value;
-
-    value_tt():
-    value{ created + (copied << 16) + (moved << 32) }
-    { created = created + 1; }
-
-    value_tt(const value_tt&):
-    value{ created + (copied << 16) + (moved << 32) }
-    { copied = copied + 1; }
-
-    value_tt(value_tt&&):
-    value{ created + (copied << 16) + (moved << 32) }
-    { moved = moved + 1; }
-};
-
 namespace group_utils
 {
     template <size_t... Idxs>
