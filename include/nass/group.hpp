@@ -144,10 +144,26 @@ namespace nass
             }
         };
 
-        template <size_t IdxV, typename... ArgsTs, size_t... IdxsVs>
-        static constexpr auto find(std::index_sequence<IdxsVs...>, ArgsTs&&... args)
+        template <typename T, size_t Idx>
+        struct retriever
         {
-            return ( item_retriever<ArgsTs, (IdxsVs - IdxV == 0)>{args} || ... );
+            T& holder;
+            constexpr retriever operator*(std::integral_constant<size_t, Idx>)
+            {
+                return *this;
+            }
+        };
+
+        template <typename... RetrieversTs>
+        struct retriever_group: RetrieversTs...
+        {
+            using RetrieversTs::operator*...;
+        };
+
+        template <typename... ArgsTs, size_t... IdxsVs>
+        static constexpr auto retriever_creator(std::index_sequence<IdxsVs...>, ArgsTs&&... args)
+        {
+            return retriever_group<retriever<ArgsTs, IdxsVs>...>{args...};
         }
 
         template <size_t IdxV>
@@ -156,7 +172,7 @@ namespace nass
             return getter([](const auto&... args)
             {
                 static_assert(sizeof...(args) > IdxV, "requested index is bigger than the group size");
-                return find<IdxV>(std::make_index_sequence<sizeof...(args)>(), args...);
+                return retriever_creator(std::make_index_sequence<sizeof...(args)>{}, args...) * std::integral_constant<size_t, IdxV>{};
             }).holder.item;
         }
 
@@ -166,7 +182,7 @@ namespace nass
             auto& cholder = getter([](const auto&... args)
             {
                 static_assert(sizeof...(args) > IdxV, "requested index is bigger than the group size");
-                return find<IdxV>(std::make_index_sequence<sizeof...(args)>(), args...);
+                return retriever_creator(std::make_index_sequence<sizeof...(args)>{}, args...) * std::integral_constant<size_t, IdxV>{};
             }).holder;
 
             auto& holder = const_cast<std::remove_cvref_t<decltype(cholder)>&>(cholder);
