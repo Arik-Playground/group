@@ -115,8 +115,13 @@ namespace nass
         {
             T& item;
 
+            constexpr operator bool () const
+            {
+                return true;
+            } 
+
             template <typename ThatT>
-            constexpr ThatT operator| (ThatT that)
+            constexpr ThatT operator|| (ThatT that)
             {
                 return that;
             }
@@ -127,8 +132,13 @@ namespace nass
         {
             T& holder;
 
+            constexpr operator bool () const
+            {
+                return false;
+            } 
+
             template <typename ThatT>
-            constexpr item_retriever<T, true> operator| (ThatT)
+            constexpr item_retriever<T, true> operator|| (ThatT)
             {
                 return *this;
             }
@@ -137,10 +147,7 @@ namespace nass
         template <size_t IdxV, typename... ArgsTs, size_t... IdxsVs>
         static constexpr auto find(std::index_sequence<IdxsVs...>, ArgsTs&&... args)
         {
-            return [](auto... args)
-            { 
-                return (args | ...); 
-            }( item_retriever<ArgsTs, (IdxsVs - IdxV == 0)>{args}... );
+            return ( item_retriever<ArgsTs, (IdxsVs - IdxV == 0)>{args} || ... );
         }
 
         template <size_t IdxV>

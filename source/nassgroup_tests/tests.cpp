@@ -1,4 +1,4 @@
-#include "nassgroup/group.hpp"
+#include "nass/group.hpp"
 #include <catch2/catch.hpp>
 
 // used to test the address of rvalues

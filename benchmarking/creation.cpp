@@ -1,7 +1,7 @@
 #include <tuple>
 #include <utility>
 
-#include "../../include/nassgroup/group.hpp"
+#include "nass/group.hpp"
 
 #include <benchmark/benchmark.h>
 
@@ -91,6 +91,3 @@ auto BM_make_forward_tuple = [](auto& bstate) { for (auto b: bstate) tuple_utils
 BENCHMARK(BM_make_tuple);
 BENCHMARK(BM_make_value_tuple);
 BENCHMARK(BM_make_forward_tuple);
-
-
-BENCHMARK_MAIN();
