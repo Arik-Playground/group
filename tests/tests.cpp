@@ -57,8 +57,15 @@ TEST_CASE("Constexpr make_group", "[constexpr][make_group]")
         {
             constexpr operator converted() { return converted{0}; }
         };
-
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#endif // __GNUC__
         constexpr auto g = nass::make_group<converted, converted>(int(0), convertible{});
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif // __GNUC__
+
     }
 }
 
@@ -143,7 +150,14 @@ TEST_CASE("make_group", "[make_group]")
             operator converted() { return converted{0}; }
         };
 
+#ifdef __GNUC__
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wunused-but-set-variable"
+#endif // __GNUC__
         auto g = nass::make_group<converted, converted>(int(0), convertible{});
+#ifdef __GNUC__
+#pragma GCC diagnostic pop
+#endif // __GNUC__
     }
 }
 
