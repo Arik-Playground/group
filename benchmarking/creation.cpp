@@ -11,7 +11,9 @@
 #define BENCH_NO_INLINE __attribute__ ((noinline))
 #elif __GNUC__ 
 #define BENCH_NO_INLINE __attribute__ ((noinline))
-#endif //__GNUC__
+#elif _MSC_VER 
+#define BENCH_NO_INLINE __declspec(noinline)
+#endif //_MSC_VER
 
 #endif // BENCH_NO_INLINE
 
