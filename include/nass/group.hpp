@@ -103,7 +103,7 @@ namespace nass
     {
         GetterT getter;
 
-        static constexpr auto tuple_size_getter = [](auto&&... args) { return std::integral_constant<size_t, sizeof...(args)>{}; };
+        static constexpr auto tuple_size_getter = [] <typename... ArgsT>(ArgsT&&...) { return std::integral_constant<size_t, sizeof...(ArgsT)>{}; };
         using tuple_size_t = decltype(std::declval<GetterT>()(tuple_size_getter));
         static constexpr size_t tuple_size = tuple_size_t::value;
 

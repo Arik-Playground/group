@@ -357,10 +357,10 @@ TEST_CASE("Constexpr make_group_from", "[constexpr][make_group_from]")
 
     SECTION("multiple")
     {
-        struct value_a_t { int inner; };
-        struct value_b_t { int inner; };
-        static constexpr value_a_t value_a{ 4 };
-        static constexpr value_b_t value_b{ 5 };
+        struct value_a_t {};
+        struct value_b_t {};
+        static constexpr value_a_t value_a{};
+        static constexpr value_b_t value_b{};
         constexpr auto g = nass::make_group_from
         (
             [] { return value_a; },

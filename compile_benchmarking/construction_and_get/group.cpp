@@ -6,7 +6,7 @@
 template <size_t... Idxs>
 auto create_giant_group(std::index_sequence<Idxs...>)
 {
-    return nass::make_value_group(Idxs...);
+    return nass::make_value_group(int(Idxs)...);
 }
 
 static volatile int dummy = 0;

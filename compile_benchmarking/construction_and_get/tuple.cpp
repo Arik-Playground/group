@@ -5,7 +5,7 @@
 template <size_t... Idxs>
 auto create_giant_tuple(std::index_sequence<Idxs...>)
 {
-    return std::tuple{Idxs...};
+    return std::tuple{int(Idxs)...};
 }
 
 static volatile int dummy = 0;
