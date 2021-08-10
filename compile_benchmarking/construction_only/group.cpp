@@ -15,5 +15,5 @@ auto create_giant_group(std::index_sequence<Idxs...>)
 
 int main()
 {
-    volatile auto testee = create_giant_group(std::make_index_sequence<300>());
+    volatile auto testee = create_giant_group(std::make_index_sequence<NASSGROUP_BENCHMARK_GIANT_NUMBER>());
 }
