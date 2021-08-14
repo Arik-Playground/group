@@ -107,15 +107,15 @@ namespace nass
 		using tuple_size_t = decltype(std::declval<GetterT>()(tuple_size_getter));
 		static constexpr size_t tuple_size = tuple_size_t::value;
 
-#ifndef NASSGROUP_GET_LOGIC
+#ifndef NASSGROUP_MSVC_GET
 #ifdef _MSC_VER
-#define NASSGROUP_GET_LOGIC 0
+#define NASSGROUP_MSVC_GET 1
 #else 
-#define NASSGROUP_GET_LOGIC 1
+#define NASSGROUP_MSVC_GET 0
 #endif //_MSC_VER
 #endif // NASSGROUP_GET_LOGIC
 
-#if NASSGROUP_GET_LOGIC
+#if !NASSGROUP_MSVC_GET
 		template <typename T, size_t Idx>
 		struct retriever
 		{
