@@ -3,6 +3,7 @@ A tuple like class with fast compile times
 - [Nass Group](#nass-group)
   - [Compile time benchmarks](#compile-time-benchmarks)
     - [Tuple times (GCC)](#tuple-times-gcc)
+    - [Tuple times (GCC) with taotuple](#tuple-times-gcc-with-taotuple)
     - [Tuple times (MSVC)](#tuple-times-msvc)
     - [Group times (GCC)](#group-times-gcc)
     - [Group times (MSVC)](#group-times-msvc)
@@ -33,6 +34,11 @@ The following tests are for group/tuple of 440 ints
 |---------|----|
 |Construction|0m39.497s|
 |Construction and get| 1m14.209s|
+### Tuple times (GCC) with taotuple
+|Operation|Time|
+|---------|----|
+|Construction|0m1.463s|
+|Construction and get| 0m3.868s|
 ### Tuple times (MSVC)
 |Operation|Time|
 |---------|----|
