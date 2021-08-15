@@ -27,25 +27,26 @@ A tuple like class with fast compile times
   - [Why should you not is this repo in your code](#why-should-you-not-is-this-repo-in-your-code)
 ## Compile time benchmarks
 See ./compile_benchmarking for source
+The following tests are for group/tuple of 440 ints
 ### Tuple times (GCC)
 |Operation|Time|
 |---------|----|
-|Construction|0m11.695s|
+|Construction|0m39.497s|
 |Construction and get| 1m14.209s|
 ### Tuple times (MSVC)
 |Operation|Time|
 |---------|----|
-|Construction|5.8533015s|
+|Construction|14.5341529s|
 |Construction and get| 16.2622472s|
 ### Group times (GCC)
 |Operation|Time|
 |---------|----|
-|Construction|0m0.231s|
+|Construction|0m0.301s|
 |Construction and get| 0m18.507s|
 ### Group times (MSVC)
 |Operation|Time|
 |---------|----|
-|Construction|0.411794s|
+|Construction|0.6200778s|
 |Construction and get| 22.4537721s|
 |Construction and get with /DNASSGROUP_MSVC_GET=0| 7.3228709s|
 ## Runtime benchmark
