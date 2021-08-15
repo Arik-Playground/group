@@ -44,6 +44,11 @@ The following tests are for group/tuple of 440 ints
 |---------|----|
 |Construction|14.5341529s|
 |Construction and get| 16.2622472s|
+### Tuple times (MSVC) with taotuple
+|Operation|Time|
+|---------|----|
+|Construction|0.0310236s|
+|Construction and get| 0.0333889s|
 ### Group times (GCC)
 |Operation|Time|
 |---------|----|
